@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- 해당조건을 처리하기 위해 ? 구문 대신 #{} 사용
+     #{} 구문은 get()/set() 
+   -->
+  
+  <mapper namespace="com.itwillbs.mapper.MemberMapper">  <!-- 내가 임의로 지정한 namespace(외부에서 찾아오게하기위한것) -->
+     
+     <select id="getTime" resultType="string"> <!-- https://mybatis.org/mybatis-3/ko/getting-started.html에서 sql구문 작성하는법 참고하기 -->
+       select now()
+     </select>  
+     
+     <insert id="insertMember">
+      insert into tbl_member(userid,userpw,username,useremail) 
+      values (#{userid},#{userpw},#{username},#{useremail})
+     </insert>
+  
+     
+     <select id="readMember"
+             resultType="com.itwillbs.domain.MemberVO">  <!-- MemberVO에 가서 호출하는 곳에 가서 이 타입으로  -->
+     select
+     *
+     from
+     tbl_member
+     where userid=#{userid}
+     </select>
+     
+     <select id="readWithIDPW" resultType="com.itwillbs.domain.MemberVO">
+     select 
+     *
+     from
+     tbl_member
+     where
+     userid=#{userid} and userpw = #{userpw}
+     </select>
+     
+     
+  
+
+  
+  
+  
+  </mapper>
